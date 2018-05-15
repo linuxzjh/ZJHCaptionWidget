@@ -16,7 +16,7 @@
 #include <QtWidgets/QHBoxLayout>
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QPushButton>
-#include <QtWidgets/QSpacerItem>
+#include <QtWidgets/QScrollArea>
 #include <QtWidgets/QVBoxLayout>
 #include <QtWidgets/QWidget>
 
@@ -32,7 +32,8 @@ public:
     QPushButton *btn_resourceMenu;
     QPushButton *btn_programMenu;
     QPushButton *btn_settingMenu;
-    QSpacerItem *verticalSpacer;
+    QScrollArea *scrollArea;
+    QWidget *scrollAreaWidgetContents;
 
     void setupUi(QWidget *Widget)
     {
@@ -76,9 +77,16 @@ public:
 
         verticalLayout->addLayout(horizontalLayout);
 
-        verticalSpacer = new QSpacerItem(20, 208, QSizePolicy::Minimum, QSizePolicy::Expanding);
+        scrollArea = new QScrollArea(Widget);
+        scrollArea->setObjectName(QStringLiteral("scrollArea"));
+        scrollArea->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOn);
+        scrollArea->setWidgetResizable(true);
+        scrollAreaWidgetContents = new QWidget();
+        scrollAreaWidgetContents->setObjectName(QStringLiteral("scrollAreaWidgetContents"));
+        scrollAreaWidgetContents->setGeometry(QRect(0, 0, 361, 247));
+        scrollArea->setWidget(scrollAreaWidgetContents);
 
-        verticalLayout->addItem(verticalSpacer);
+        verticalLayout->addWidget(scrollArea);
 
 
         verticalLayout_2->addLayout(verticalLayout);

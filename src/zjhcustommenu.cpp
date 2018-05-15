@@ -14,6 +14,8 @@ ZJHCustomMenu::ZJHCustomMenu(const QString &menuName, int id, pEnableFun enableF
     spRootItemInfo->_pOWner = _pOwner;             //parent
     spRootItemInfo->_type = 0;
     _menuId2MenuCorrelateInfoMap.insert(id, spRootItemInfo);
+
+    connect(this, SIGNAL(triggered(QAction*)), this, SLOT(On_Triggered(QAction*)));
 }
 
 bool ZJHCustomMenu::addCustomMenuAction(int iParentID, int id, int type, const QString &name, const QString &shortcut, const QString icon, bool bCheckable)
@@ -47,7 +49,7 @@ bool ZJHCustomMenu::addCustomMenuAction(int iParentID, int id, int type, const Q
                 {
                     action->setShortcut(QKeySequence(shortcut));
                 }
-                action->setData(id);
+                action->setData(id);        //后期点击便于查询的key
                 action->setCheckable(bCheckable);
                 if (!icon.isEmpty())
                 {
@@ -60,4 +62,23 @@ bool ZJHCustomMenu::addCustomMenuAction(int iParentID, int id, int type, const Q
 
     _menuId2MenuCorrelateInfoMap.insert(id, spRootItemInfo);
     return true;
+}
+
+void ZJHCustomMenu::On_Triggered(QAction *action)
+{
+    int menuID = action->data().toInt();
+    _pfExec(_pOwner, menuID);
+}
+
+void ZJHCustomMenu::showEvent(QShowEvent *event)
+{
+    //在创建时，去判断所有的可视化、使能等情况也可以。
+    for (auto it = _menuId2MenuCorrelateInfoMap.begin(); it != _menuId2MenuCorrelateInfoMap.end(); ++it)
+    {
+        QSharedPointer<menuCorrelateInfo> spMenuCorrelateInfo = it.value();
+        spMenuCorrelateInfo->_pAction->setEnabled(_pfEnabled(_pOwner, it.key()));
+        spMenuCorrelateInfo->_pAction->setVisible(_pfVisiabled(_pOwner, it.key()));
+    }
+
+    QMenu::showEvent(event);
 }

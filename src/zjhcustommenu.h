@@ -42,6 +42,10 @@ class ZJHCustomMenu : public QMenu
 public:
     ZJHCustomMenu(const QString &menuName, int id, pEnableFun enableFun, pVisibleFun visibleFun, pExecFun execFun, void *pOwner, QWidget *parent = nullptr);
     bool addCustomMenuAction(int iParentID, int id, int type, const QString& name, const QString &shortcut = "", const QString icon = "", bool bCheckable = false);
+public slots:
+    void On_Triggered(QAction* action);
+protected:
+    void showEvent(QShowEvent *event);
 private:
     QMap<int, QSharedPointer<menuCorrelateInfo>> _menuId2MenuCorrelateInfoMap;
 

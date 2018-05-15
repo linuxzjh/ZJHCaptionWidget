@@ -4,7 +4,7 @@
 #endif // ACTIONDEFINE_H
 
 //主菜单--文件段
-#define MENU_FILE_SECTION           0X100
+#define MENU_FILE_SECTION           0X0
 #define MENU_FILE_NEWPROJ			MENU_FILE_SECTION + 1		//新建工程
 #define MENU_FILE_OPENPROJ          MENU_FILE_SECTION + 2       //打开工程
 #define MENU_FILE_RECOPENPROJ       MENU_FILE_SECTION + 3       //最近打开工程

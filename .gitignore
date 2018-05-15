@@ -30,3 +30,8 @@
 *.exe
 *.out
 *.app
+Makefile
+Makefile.Debug
+Makefile.Release
+debug/ZJHCaptionWidget.pdb
+ZJHCaptionWidget.pro.user

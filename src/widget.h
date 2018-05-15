@@ -2,6 +2,7 @@
 #define WIDGET_H
 
 #include <QWidget>
+#include <QButtonGroup>
 #include "zjhcustommenu.h"
 #include "zjhmenumanager.h"
 
@@ -44,6 +45,7 @@ public slots:
     void OnSettingMenuClicked();
 private:
     Ui::Widget *ui;
+    QButtonGroup *btnGroup;
 };
 
 #endif // WIDGET_H
