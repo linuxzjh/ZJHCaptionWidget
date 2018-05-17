@@ -3,12 +3,15 @@
 
 #include <QWidget>
 #include <QButtonGroup>
+#include <QVBoxLayout>
 #include "zjhcustommenu.h"
 #include "zjhmenumanager.h"
 
 namespace Ui {
 class Widget;
 }
+
+#include "ColorDialogDll/include/ColorDialog.h"
 
 class Widget : public QWidget
 {
@@ -46,6 +49,8 @@ public slots:
 private:
     Ui::Widget *ui;
     QButtonGroup *btnGroup;
+    ColorDialog *_pColorDlg;
+	QVBoxLayout *_vlayout;
 };
 
 #endif // WIDGET_H

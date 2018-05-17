@@ -2,10 +2,13 @@
 #include "ui_widget.h"
 #include <QDebug>
 #include <QMessageBox>
+#include <QColorDialog>
+#include "KSubColorDialog.h"
 
 Widget::Widget(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::Widget)
+  , _pColorDlg(nullptr)
 {
     ui->setupUi(this);
 
@@ -14,7 +17,7 @@ Widget::Widget(QWidget *parent) :
     connect(ui->btn_resourceMenu, SIGNAL(clicked()), this, SLOT(OnResourceMenuClicked()));
     connect(ui->btn_settingMenu, SIGNAL(clicked()), this, SLOT(OnSettingMenuClicked()));
 
-    QVBoxLayout *vlayout = new QVBoxLayout;
+    _vlayout = new QVBoxLayout;
     QPushButton *btn1 = new QPushButton(tr("工程1"), ui->scrollAreaWidgetContents);
     QPushButton *btn2 = new QPushButton(tr("工程2"), ui->scrollAreaWidgetContents);
     QPushButton *btn3 = new QPushButton(tr("工程3"), ui->scrollAreaWidgetContents);
@@ -28,10 +31,10 @@ Widget::Widget(QWidget *parent) :
     btnGroup->addButton(btn2, MENU_FILE_RECOPENPROJ2);
     btnGroup->addButton(btn3, MENU_FILE_RECOPENPROJ3);
 
-    vlayout->addWidget(btn1);
-    vlayout->addWidget(btn2);
-    vlayout->addWidget(btn3);
-    ui->scrollAreaWidgetContents->setLayout(vlayout);
+    _vlayout->addWidget(btn1);
+    _vlayout->addWidget(btn2);
+    _vlayout->addWidget(btn3);
+    ui->scrollAreaWidgetContents->setLayout(_vlayout);
 }
 
 Widget::~Widget()
@@ -91,15 +94,26 @@ void Widget::OnStartMenuClicked()
 
 void Widget::OnProgramMenuClicked()
 {
-
+    QColorDialog colorDialog;
+    colorDialog.setOption(QColorDialog::DontUseNativeDialog, false);
+    colorDialog.exec();
 }
 
 void Widget::OnResourceMenuClicked()
 {
-
+//    if(_pColorDlg == NULL)
+//    {
+//        _pColorDlg = new ColorDialog(this);
+//		//_pColorDlg->setMinimumSize(500, 500);
+//		_vlayout->addWidget(_pColorDlg);
+//		//_pColorDlg->show();
+//		QColor color = _pColorDlg->getColor();
+//		QRgb rgb = _pColorDlg->getRgb();
+//    }
 }
 
 void Widget::OnSettingMenuClicked()
 {
-
+    KSubColorDialog colorDialog;
+    colorDialog.exec();
 }
